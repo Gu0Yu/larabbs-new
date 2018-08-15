@@ -11,6 +11,9 @@
 |
 */
 
+
+Route::get('/timetest', 'TestController@index');
+
 Route::get('/', 'PagesController@root')->name('root');
 
 //Auth::routes() 等同于下面登录注册路由
@@ -33,4 +36,4 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
-Route::get('/timetest', 'TestController@index');
+Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
