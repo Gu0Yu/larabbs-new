@@ -65,7 +65,7 @@ class TopicsController extends Controller
 		return redirect()->route('topics.index')->with('message', 'Deleted successfully.');
 	}
 
-	public function uploadImage(TopicRequest $request, ImageUploadHandler $uploader)
+    public function uploadImage(Request $request, ImageUploadHandler $uploader)
     {
         // 初始化返回数据，默认是失败的
         $data = [
@@ -73,8 +73,6 @@ class TopicsController extends Controller
             'msg'       => '上传失败!',
             'file_path' => ''
         ];
-        $file = $request->upload_file;
-
         // 判断是否有上传文件，并赋值给 $file
         if ($file = $request->upload_file) {
             // 保存图片到本地
