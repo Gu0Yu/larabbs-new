@@ -15,6 +15,7 @@ class ReplyPolicy extends Policy
 
     public function destroy(User $user, Reply $reply)
     {
-        return true;
+        // 当前登录用户的回复可以删除或当前登录用户的话题下回复亦可
+        return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
     }
 }
