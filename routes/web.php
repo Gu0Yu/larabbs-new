@@ -14,7 +14,8 @@
 
 Route::get('/timetest', 'TestController@index');
 
-Route::get('/', 'PagesController@root')->name('root');
+//Route::get('/', 'PagesController@root')->name('root');
+Route::get('/', 'TopicsController@index')->name('root');
 
 //Auth::routes() 等同于下面登录注册路由
 
