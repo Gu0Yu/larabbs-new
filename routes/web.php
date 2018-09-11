@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/timetest', 'TestController@index');
+Route::get('/testtest', 'TestController@index');
 
 //Route::get('/', 'PagesController@root')->name('root');
 Route::get('/', 'TopicsController@index')->name('root');

@@ -10,7 +10,7 @@ return [
 
         // 默认可用的发送网关
         'gateways' => [
-            'yunpian',
+            'qcloud',
         ],
     ],
     // 可用的网关配置
@@ -18,8 +18,10 @@ return [
         'errorlog' => [
             'file' => '/tmp/easy-sms.log',
         ],
-        'yunpian' => [
-            'api_key' => env('YUNPIAN_API_KEY'),
+        'qcloud' => [
+            'sdk_app_id' => env('QCLOUD_SDK_APP_ID'),
+            'app_key' => env('QCLOUD_APP_KEY'),
+            'sign_name' => env('QCLOUD_SIGN_NAME'),
         ],
     ],
 ];
