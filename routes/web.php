@@ -14,6 +14,10 @@
 
 Route::get('/testtest', 'TestController@index');
 
+// Excel 操作接口
+Route::get('/excel', 'ExcelController@index');
+Route::get('/excelcreate', 'ExcelController@create');
+
 //Route::get('/', 'PagesController@root')->name('root');
 Route::get('/', 'TopicsController@index')->name('root');
 
