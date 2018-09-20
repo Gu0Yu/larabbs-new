@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;     // 读取 Excel
 $activity_path = '../excel/activity.xlsx';
 $activities_path = '../excel/activities.xlsx';
 
+
 $activity = IOFactory::load($activity_path);  //载入要读取的文件
 $activities = IOFactory::load($activities_path);
 
@@ -29,18 +30,41 @@ $activities_sheet->setCellValue('K1', '活动id')
                     ->setCellValue('P1','域名');
 
 for ($i = 2; $i <= 394; $i++) {
-    $activities_url = 'http://';
-    $activities_url .= $activities_sheet->getCell('B'. $i)->getvalue();
-    for($j = 2; $j <= 300; $j++) {
+//    $activities_url = 'http://';
+//    $activities_url .= $activities_sheet->getCell('B'. $i)->getvalue();
+
+    for($j = 2; $j <= 696; $j++) {
         $activity_url = $activity_sheet->getCell('B'. $j)->getvalue();
+        $activity_url = strtolower($activity_url);
+        $tail = substr($activity_url, -1);
+
+        if ($tail == '/') {
+            $activity_url = rtrim($activity_url, '/');
+        }
+//        echo $activity_url . '</br>';
+//        continue;
+        $head = substr($activity_url, 0, 5);
+        if ($head == 'http:') {
+            $activities_url = 'http://'. $activities_sheet->getCell('B'. $i)->getvalue();
+        } elseif ($head == 'https') {
+            $activities_url = 'https://'. $activities_sheet->getCell('B'. $i)->getvalue();
+        } else {
+            $activities_url = $activities_sheet->getCell('B'. $i)->getvalue();
+        }
 
         if ($activities_url == $activity_url) {
+
             $act_id = $activity_sheet->getCell('A'. $j)->getvalue();
             $activities_sheet->setCellValue('K'.$i, $act_id);
+
             $begin_time = $activity_sheet->getCell('C'. $j)->getFormattedValue();
+            $begin_time = date('Y-m-d H:i:s', strtotime($begin_time));
             $activities_sheet->setCellValue('L'.$i, $begin_time);
+
             $end_time = $activity_sheet->getCell('D'. $j)->getFormattedValue();
+            $end_time = date('Y-m-d H:i:s', strtotime($end_time));
             $activities_sheet->setCellValue('M'.$i, $end_time);
+
             $act_area = $activity_sheet->getCell('E'. $j)->getvalue();
             switch ($act_area) {
                 case 1:
@@ -54,12 +78,15 @@ for ($i = 2; $i <= 394; $i++) {
                     break;
             }
             $activities_sheet->setCellValue('N'.$i, $act_area);
+
             $operator = $activity_sheet->getCell('F'. $j)->getvalue();
             $activities_sheet->setCellValue('O'.$i, $operator);
+
             $act_url = $activity_sheet->getCell('B'. $j)->getvalue();
             $activities_sheet->setCellValue('P'.$i, $act_url);
         }
     }
+//    exit;
 }
 
 //从当前活动的表单里读取并转成数组的形式

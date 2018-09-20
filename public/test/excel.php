@@ -6,6 +6,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
+$time = strtotime('2018-10-08 24:00:00');
+echo $time;
+exit;
+
 $spreadsheet = new Spreadsheet();
 $spreadsheet->setActiveSheetIndex(0);
 $sheet = $spreadsheet->getActiveSheet();
